@@ -4,6 +4,8 @@ import argparse
 import requests
 import logging
 
+logging.basicConfig(format='%(asctime)s - %(message)s', level=logging.INFO)
+
 class ISSTracking(object):
     """
     Python Wrapper Class to interact with OpenNotify API
@@ -30,7 +32,7 @@ class ISSTracking(object):
         response = iss_object.text
         response_dict = json.loads(response)
         time_stamp = self.epoch_time_converter(response_dict["timestamp"])
-        print('The ISS current location at {} is {} {}'.format(time_stamp,
+        logging.info('The ISS current location at {} is {} {}'.format(time_stamp,
                                                                response_dict["iss_position"]["latitude"],
                                                                response_dict["iss_position"]["longitude"]))
         return response
@@ -58,7 +60,7 @@ class ISSTracking(object):
         response = iss_object.text
         pass_times = json.loads(response)
         for res in pass_times["response"]:
-            print('The ISS will be overhead {} {} at {} for {} seconds'.format(latitude,
+            logging.info('The ISS will be overhead {} {} at {} for {} seconds'.format(latitude,
                                                                        longitude,
                                                                        self.epoch_time_converter(res["risetime"]),
                                                                        res["duration"]))

@@ -64,6 +64,7 @@ class ISSTracking:
         iss_url = "http://api.open-notify.org/iss-pass.json?lat=" + latitude + "&lon=" + longitude
         iss_object = requests.get(iss_url)
         response = iss_object.text
+        logging.debug("The response for overhead passing time is:", response)
         pass_times = json.loads(response)
         for res in pass_times["response"]:
             logging.info('The ISS will be overhead {} {} at {} for {} seconds'.format(latitude,
@@ -91,6 +92,49 @@ class ISSTracking:
             logging.info("The astronauts living in {} are {}".format(key, value))
         return response
 
+
+
+def main():
+    """
+    :param arguments: argparse based arguments
+    :return: None
+    """
+    parser =  argparse.ArgumentParser(description="ISS Tracking Tool")
+    parser.add_argument("--current", help='Get the current position of ISS')
+    parser.add_argument("--passtime", help='Get the passing time of ISS')
+    parser.add_argument("--pplinspace", help='Get the numbe of ppl in space')
+    parser.add_argument("--demo", help='Test functionality of the tool')
+
+    parser.add_argument('--lattitude', action='store', type=str, help='Latitude in degrees')
+    parser.add_argument('--longitude', action='store', type=str, help='Longitude in degrees')
+    parser.add_argument('--altitude', action='store', type=str, help='Altitude')
+    parser.add_argument('--number', action='store', type=str, help='number of entries in response')
+    args = parser.parse_args()
+
+    iss = ISSTracking()
+    if args.current:
+        # Driver code for getting ISS location
+        response = iss.get_iss_location()
+        response_dict = json.loads(response)
+
+    if args.passtime:
+        latitude = args.lattitude
+        longitude = args.longitude
+        # Driver code for getting ISS passing overhead time
+        iss.get_pass_times(latitude, longitude)
+
+    if args.pplinspace:
+        # Driver code for getting number of ppl in space
+        iss.get_ppl_in_space()
+
+    if args.demo:
+        response = iss.get_iss_location()
+        response_dict = json.loads(response)
+        latitude = response_dict["iss_position"]["latitude"]
+        longitude = response_dict["iss_position"]["longitude"]
+        iss.get_pass_times(latitude, longitude)
+        iss.get_ppl_in_space()
+
 if __name__ == "__main__":
     """
     TODO:  Enhancements
@@ -101,13 +145,4 @@ if __name__ == "__main__":
           1. Write some unit-tests
           4. Write handle request function - scalable
     """
-    iss = ISSTracking()
-    # Driver code for getting ISS location
-    response = iss.get_iss_location()
-    response_dict = json.loads(response)
-    latitude = response_dict["iss_position"]["latitude"]
-    longitude = response_dict["iss_position"]["longitude"]
-    # Driver code for getting ISS passing overhead time
-    iss.get_pass_times(latitude, longitude)
-    # Driver code for getting number of ppl in space
-    iss.get_ppl_in_space()
+    main()

@@ -1,12 +1,18 @@
+"""
+Python Utility to class for OpenNotify API to track the International Space Station
+
+"""
+
 import time
 import json
 import argparse
-import requests
 import logging
+
+import requests
 
 logging.basicConfig(format='%(asctime)s - %(message)s', level=logging.INFO)
 
-class ISSTracking(object):
+class ISSTracking:
     """
     Python Wrapper Class to interact with OpenNotify API
     """
@@ -33,8 +39,8 @@ class ISSTracking(object):
         response_dict = json.loads(response)
         time_stamp = self.epoch_time_converter(response_dict["timestamp"])
         logging.info('The ISS current location at {} is {} {}'.format(time_stamp,
-                                                               response_dict["iss_position"]["latitude"],
-                                                               response_dict["iss_position"]["longitude"]))
+                                                                      response_dict["iss_position"]["latitude"],
+                                                                      response_dict["iss_position"]["longitude"]))
         return response
 
     def get_pass_times(self, latitude, longitude, altitude=None, number=None):
@@ -47,13 +53,13 @@ class ISSTracking(object):
         """
         # SANITY CHECKS
         if abs(float(latitude)) > 80 or abs(float(longitude)) > 180:
-               raise ValueError("Invalid Input: Please enter input of a valid range")
+            raise ValueError("Invalid Input: Please enter input of a valid range")
         if altitude is not None:
             if (int(altitude) < 0 or int(altitude) > 10000):
-               raise ValueError("Invalid Input: Please enter input of a valid range")
+                raise ValueError("Invalid Input: Please enter input of a valid range")
         if number is not None:
             if int(number) < 0 or int(number) > 100:
-               raise ValueError("Invalid Input: Please enter input of a valid range")
+                raise ValueError("Invalid Input: Please enter input of a valid range")
 
         iss_url = "http://api.open-notify.org/iss-pass.json?lat=" + latitude + "&lon=" + longitude
         iss_object = requests.get(iss_url)
@@ -61,19 +67,18 @@ class ISSTracking(object):
         pass_times = json.loads(response)
         for res in pass_times["response"]:
             logging.info('The ISS will be overhead {} {} at {} for {} seconds'.format(latitude,
-                                                                       longitude,
-                                                                       self.epoch_time_converter(res["risetime"]),
-                                                                       res["duration"]))
+                                                                                      longitude,
+                                                                                      self.epoch_time_converter(res["risetime"]),
+                                                                                      res["duration"]))
         return response
 
 if __name__ == "__main__":
     """
-    TODO: Run pylint
-          Write some unit-tests
-          Makefile
+    TODO: Write some unit-tests
           number and altitude logic
-          argparse
+          argparse logic
           Updated steps in README (sanity checks etc)
+          function to track ppl in space
     """
     iss = ISSTracking()
     # Driver code for getting ISS location

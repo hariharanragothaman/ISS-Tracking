@@ -72,13 +72,33 @@ class ISSTracking:
                                                                                       res["duration"]))
         return response
 
+    def get_ppl_in_space(self):
+        """
+        :brief: Function to return number of ppl in space
+        :return: JSON payload of response
+        """
+        iss_url = "http://api.open-notify.org/astros.json"
+        iss_object = requests.get(iss_url)
+        response = iss_object.text
+        ppl_in_space = json.loads(response)
+        result_map = {}
+        for res in ppl_in_space["people"]:
+            if res["craft"] not in result_map:
+                result_map[res["craft"]] = [res["name"]]
+            else:
+                result_map[res["craft"]].append(res["name"])
+        for key, value in result_map.items():
+            logging.info("The astronauts living in {} are {}".format(key, value))
+        return response
+
 if __name__ == "__main__":
     """
-    TODO: Write some unit-tests
-          number and altitude logic
-          argparse logic
-          Updated steps in README (sanity checks etc)
-          function to track ppl in space
+    TODO:  Enhancements
+          1. Write some unit-tests
+          2. number and altitude logic
+          3. argparse logic
+          4. Write handle request function - scalable
+          5. Updated steps in README (sanity checks etc)
     """
     iss = ISSTracking()
     # Driver code for getting ISS location
@@ -88,3 +108,5 @@ if __name__ == "__main__":
     longitude = response_dict["iss_position"]["longitude"]
     # Driver code for getting ISS passing overhead time
     iss.get_pass_times(latitude, longitude)
+    # Driver code for getting number of ppl in space
+    iss.get_ppl_in_space()

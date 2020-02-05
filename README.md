@@ -20,7 +20,7 @@ $ python3.7 iss_tracking.py --current true
 Sample Output:
 
 $ python3.7 iss_tracking.py --current True
-2020-02-05 00:42:58,906 - The ISS current location at 2020-02-05 00:42:58 is -29.0760 -88.1768
+2020-02-05 01:37:38,485 - The ISS current location at 2020-02-05 01:37:37 is (47.4545,111.4462)
 (venv)
 
 ```
@@ -31,11 +31,17 @@ $ python3.7 iss_tracking.py -passtime true --latitude <latitude> --longitude <lo
 
 Sample Output:
 
-$ python3.7 iss_tracking.py --passtime True --lattitude -27 --longitude -101
-2020-02-05 00:43:34,722 - The ISS will be overhead -27 -101 at 2020-02-05 03:53:42 for 180 seconds
-2020-02-05 00:43:34,725 - The ISS will be overhead -27 -101 at 2020-02-05 08:47:02 for 564 seconds
-2020-02-05 00:43:34,727 - The ISS will be overhead -27 -101 at 2020-02-05 10:23:17 for 646 seconds
-2020-02-05 00:43:34,729 - The ISS will be overhead -27 -101 at 2020-02-05 23:48:41 for 537 seconds
+$ python3.7 iss_tracking.py --passtime True --lattitude -27 --longitude -101 --number 4
+2020-02-05 01:37:17,248 - The ISS will be overhead (-27,-101) at 2020-02-05 03:53:42 for 180 seconds
+2020-02-05 01:37:17,250 - The ISS will be overhead (-27,-101) at 2020-02-05 08:47:02 for 564 seconds
+2020-02-05 01:37:17,252 - The ISS will be overhead (-27,-101) at 2020-02-05 10:23:17 for 646 seconds
+2020-02-05 01:37:17,254 - The ISS will be overhead (-27,-101) at 2020-02-05 23:48:41 for 537 seconds
+(venv)
+
+$ python3.7 iss_tracking.py --passtime True --lattitude -27 --longitude -101 --number 3
+2020-02-05 01:37:06,988 - The ISS will be overhead (-27,-101) at 2020-02-05 03:53:42 for 180 seconds
+2020-02-05 01:37:06,990 - The ISS will be overhead (-27,-101) at 2020-02-05 08:47:02 for 564 seconds
+2020-02-05 01:37:06,993 - The ISS will be overhead (-27,-101) at 2020-02-05 10:23:17 for 646 seconds
 (venv)
 
 ```
@@ -46,8 +52,9 @@ $ python3.7 iss_tracking.py --pplinspace true
 
 Sample Output:
 
-$ python3.7 iss_tracking.py --pplinspace true
-2020-02-05 00:47:31,104 - The astronauts living in ISS are ['Christina Koch', 'Alexander Skvortsov', 'Luca Parmitano', 'Andrew Morgan', 'Oleg Skripochka', 'Jessica Meir']
+$ python3.7 iss_tracking.py --pplinspace True
+2020-02-05 01:37:54,520 - The astronauts living in ISS are ['Christina Koch', 'Alexander Skvortsov', 'Luca Parmitano', 'Andrew Morgan', 'Oleg Skripochka', 'Jessica Meir']
 (venv)
+
 
 ```

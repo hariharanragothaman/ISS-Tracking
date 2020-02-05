@@ -73,7 +73,6 @@ if __name__ == "__main__":
           argparse
           Updated steps in README (sanity checks etc)
           Replace print's with logger()
-          Add a requirements.txt
     """
     iss = ISSTracking()
     # Driver code for getting ISS location

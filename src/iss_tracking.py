@@ -1,6 +1,5 @@
 """
 Python Utility to class for OpenNotify API to track the International Space Station
-
 """
 
 import time
@@ -51,7 +50,7 @@ class ISSTracking:
                                                                       response_dict["iss_position"]["longitude"]))
         return response
 
-    def get_pass_times(self, latitude, longitude, altitude=None, number=None):
+    def get_pass_times(self, latitude, longitude, number=None, altitude=None):
         """
         :brief: Function get overhead passing time of ISS
         :param latitude:   Latitude of the place to predict passes  (degress)
@@ -72,7 +71,11 @@ class ISSTracking:
         iss_url = "http://api.open-notify.org/iss-pass.json?lat=" + latitude + "&lon=" + longitude
         response = self.handle_request(iss_url)
         pass_times = json.loads(response)
-        for res in pass_times["response"]:
+        rlist = pass_times["response"]
+        if number is not None:
+            k = int(number)
+            rlist = rlist[:k]
+        for res in rlist:
             logging.info('The ISS will be overhead ({},{}) at {} for {} seconds'.format(latitude,
                                                                                       longitude,
                                                                                       self.epoch_time_converter(res["risetime"]),
@@ -123,8 +126,9 @@ def main():
     if args.passtime:
         latitude = args.lattitude
         longitude = args.longitude
+        number = args.number
         # Driver code for getting ISS passing overhead time
-        iss.get_pass_times(latitude, longitude)
+        iss.get_pass_times(latitude, longitude, number)
 
     if args.pplinspace:
         # Driver code for getting number of ppl in space
@@ -139,10 +143,4 @@ def main():
         iss.get_ppl_in_space()
 
 if __name__ == "__main__":
-    """
-    TODO:  Enhancements
-          2. number and altitude logic
-          1. Write some unit-tests
-          4. Write handle request function - scalable
-    """
     main()

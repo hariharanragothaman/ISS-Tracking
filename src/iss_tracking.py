@@ -68,6 +68,9 @@ if __name__ == "__main__":
     """
     TODO: Run pylint
           Write some unit-tests
+          Makefile
+          number and altitude logic
+          argparse
     """
     iss = ISSTracking()
     # Driver code for getting ISS location

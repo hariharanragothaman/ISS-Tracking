@@ -11,7 +11,6 @@ class ISSTracking(object):
     def __init__(self):
         """
         :brief: Constructor of Class
-        :param url: URL of the OpenNotify API
         """
 
     def epoch_time_converter(self, epochtime):

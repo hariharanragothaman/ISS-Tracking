@@ -71,6 +71,7 @@ if __name__ == "__main__":
           Makefile
           number and altitude logic
           argparse
+          Updated steps in README
     """
     iss = ISSTracking()
     # Driver code for getting ISS location

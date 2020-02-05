@@ -74,7 +74,6 @@ if __name__ == "__main__":
           number and altitude logic
           argparse
           Updated steps in README (sanity checks etc)
-          Replace print's with logger()
     """
     iss = ISSTracking()
     # Driver code for getting ISS location

@@ -94,11 +94,12 @@ class ISSTracking:
 if __name__ == "__main__":
     """
     TODO:  Enhancements
-          1. Write some unit-tests
           2. number and altitude logic
           3. argparse logic
-          4. Write handle request function - scalable
           5. Updated steps in README (sanity checks etc)
+          --------------------------------
+          1. Write some unit-tests
+          4. Write handle request function - scalable
     """
     iss = ISSTracking()
     # Driver code for getting ISS location

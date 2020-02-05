@@ -38,7 +38,7 @@ class ISSTracking:
         response = iss_object.text
         response_dict = json.loads(response)
         time_stamp = self.epoch_time_converter(response_dict["timestamp"])
-        logging.info('The ISS current location at {} is {} {}'.format(time_stamp,
+        logging.info('The ISS current location at {} is ({},{})'.format(time_stamp,
                                                                       response_dict["iss_position"]["latitude"],
                                                                       response_dict["iss_position"]["longitude"]))
         return response
@@ -67,7 +67,7 @@ class ISSTracking:
         logging.debug("The response for overhead passing time is:", response)
         pass_times = json.loads(response)
         for res in pass_times["response"]:
-            logging.info('The ISS will be overhead {} {} at {} for {} seconds'.format(latitude,
+            logging.info('The ISS will be overhead ({},{}) at {} for {} seconds'.format(latitude,
                                                                                       longitude,
                                                                                       self.epoch_time_converter(res["risetime"]),
                                                                                       res["duration"]))
@@ -139,8 +139,6 @@ if __name__ == "__main__":
     """
     TODO:  Enhancements
           2. number and altitude logic
-          3. Comma logic of lattitude, longitutde
-          --------------------------------
           1. Write some unit-tests
           4. Write handle request function - scalable
     """

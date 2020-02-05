@@ -99,7 +99,7 @@ def main():
     :param arguments: argparse based arguments
     :return: None
     """
-    parser =  argparse.ArgumentParser(description="ISS Tracking Tool")
+    parser =  argparse.ArgumentParser(description="International Space Station Tracking Tool")
     parser.add_argument("--current", help='Get the current position of ISS')
     parser.add_argument("--passtime", help='Get the passing time of ISS')
     parser.add_argument("--pplinspace", help='Get the numbe of ppl in space')
@@ -139,8 +139,7 @@ if __name__ == "__main__":
     """
     TODO:  Enhancements
           2. number and altitude logic
-          3. argparse logic
-          5. Updated steps in README (sanity checks etc)
+          3. Comma logic of lattitude, longitutde
           --------------------------------
           1. Write some unit-tests
           4. Write handle request function - scalable

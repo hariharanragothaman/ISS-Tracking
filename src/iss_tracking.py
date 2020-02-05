@@ -29,13 +29,21 @@ class ISSTracking:
         time_human_format = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(epochtime))
         return time_human_format
 
+    def handle_request(self, url):
+        """
+        Utility function for handling requests
+        """
+        iss_object = requests.get(url, auth=('user', 'pass'))
+        response = iss_object.text
+        return response
+
     def get_iss_location(self):
         """
         : brief: Getter function to get current ISS location
         :return: JSON payload response
         """
-        iss_object = requests.get('http://api.open-notify.org/iss-now.json', auth=('user', 'pass'))
-        response = iss_object.text
+        iss_url = 'http://api.open-notify.org/iss-now.json'
+        response = self.handle_request(iss_url)
         response_dict = json.loads(response)
         time_stamp = self.epoch_time_converter(response_dict["timestamp"])
         logging.info('The ISS current location at {} is ({},{})'.format(time_stamp,
@@ -62,9 +70,7 @@ class ISSTracking:
                 raise ValueError("Invalid Input: Please enter input of a valid range")
 
         iss_url = "http://api.open-notify.org/iss-pass.json?lat=" + latitude + "&lon=" + longitude
-        iss_object = requests.get(iss_url)
-        response = iss_object.text
-        logging.debug("The response for overhead passing time is:", response)
+        response = self.handle_request(iss_url)
         pass_times = json.loads(response)
         for res in pass_times["response"]:
             logging.info('The ISS will be overhead ({},{}) at {} for {} seconds'.format(latitude,
@@ -79,8 +85,7 @@ class ISSTracking:
         :return: JSON payload of response
         """
         iss_url = "http://api.open-notify.org/astros.json"
-        iss_object = requests.get(iss_url)
-        response = iss_object.text
+        response = self.handle_request(iss_url)
         ppl_in_space = json.loads(response)
         result_map = {}
         for res in ppl_in_space["people"]:
@@ -91,8 +96,6 @@ class ISSTracking:
         for key, value in result_map.items():
             logging.info("The astronauts living in {} are {}".format(key, value))
         return response
-
-
 
 def main():
     """

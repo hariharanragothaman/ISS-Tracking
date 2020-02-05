@@ -1,6 +1,6 @@
 .PHONY: vsetup
-vsetup: requirements.txt
-	test -d venv || virtualenv -p /usr/bin/python3.7 venv
+vsetup:
+	test -d venv || virtualenv-3.7 -p /usr/bin/python3.7 venv
 
 .PHONY: test
 test:

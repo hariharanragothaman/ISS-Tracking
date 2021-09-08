@@ -11,7 +11,7 @@ def test_iss_location():
 
 def test_pass_time():
     latitiude = 20
-    longitud e= 30
+    longitude = 30
     pass_time = iss_object.get_pass_times()
     assert pass_time
 

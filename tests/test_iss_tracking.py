@@ -1,7 +1,7 @@
 """
 Unit-test for ISS Tracking class
 """
-from ..src.iss_tracking import ISSTracking
+from iss_tracking import ISSTracking
 
 iss_object = ISSTracking()
 

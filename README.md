@@ -55,6 +55,4 @@ Sample Output:
 $ python3.7 iss_tracking.py --pplinspace True
 2020-02-05 01:37:54,520 - The astronauts living in ISS are ['Christina Koch', 'Alexander Skvortsov', 'Luca Parmitano', 'Andrew Morgan', 'Oleg Skripochka', 'Jessica Meir']
 (venv)
-
-
 ```
